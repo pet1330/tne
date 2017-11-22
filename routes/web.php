@@ -12,5 +12,18 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('splash');
 });
+
+Route::get('/beta', function () {
+    return view('welcome');
+    
+});
+
+Route::get('login', 'SAMLController@login');
+Route::post('logout', 'SAMLController@logout');
+
+Route::group(['middleware' => ['samlauth']], function () {
+    Route::view('loggedin', 'welcome');
+});
+
