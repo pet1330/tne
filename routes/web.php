@@ -2,7 +2,7 @@
 
 Route::get('/', function() { return view('frontend.home'); })->name('home');
 Route::get('login', 'SAMLController@login')->name('login');
-Route::post('logout', 'SAMLController@logout')->name('logout');
+Route::get('logout', 'SAMLController@logout')->name('logout');
 
 Route::get('table-data/{module}', function(App\Module $module) {
     return $module->criterias->map(function(App\Criteria $c) {
