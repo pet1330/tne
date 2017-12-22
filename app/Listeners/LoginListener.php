@@ -37,9 +37,7 @@ class LoginListener
             // Update or set attributes
             'university_email' => $loginAttempt->getUserId(),
             'first_name' => $details['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'][0],
-            'last_name' => $details['LastName'][0],
-            'university_id' => $details['UniversityID'][0],
-            'user_type' => $details['Description'][0] == 'Staff Account' ? 'Staff' : 'Student'
+            'last_name' => $details['LastName'][0]
         ]);
         
         $user->save();

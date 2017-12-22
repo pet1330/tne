@@ -55,7 +55,7 @@ return $settings = array(
     // or unencrypted messages if it expects them signed or encrypted
     // Also will reject the messages if not strictly follow the SAML
     // standard: Destination, NameId, Conditions ... are validated too.
-    'strict' => true, //@todo: make this depend on laravel config
+    'strict' => false, //@todo: make this depend on laravel config
 
     // Enable debug mode (to print errors)
     'debug' => true, //@todo: make this depend on laravel config,
@@ -73,6 +73,7 @@ return $settings = array(
         // represent the requested subject.
         // Take a look on lib/Saml2/Constants.php to see the NameIdFormat supported
         // 'NameIDFormat' => 'urn:oasis:names:tc:SAML:2.0:nameid-format:persistent',
+
         'NameIDFormat' => 'urn:oasis:names:tc:SAML:2.0:nameid-format:transient',
 
         // Usually x509cert and privateKey of the SP are provided by files placed at
@@ -106,19 +107,20 @@ return $settings = array(
     // Identity Provider Data that we want connect with our SP
     'idp' => array(
         // Identifier of the IdP entity  (must be a URI)
-        'entityId' => $idp_host . '/saml2/idp/metadata.php',
+
+        'entityId' => $idp_host . '/federationmetadata/2007-06/federationmetadata.xml',
         // SSO endpoint info of the IdP. (Authentication Request protocol)
         'singleSignOnService' => array(
             // URL Target of the IdP where the SP will send the Authentication Request Message,
             // using HTTP-Redirect binding.
-            // 'url' => $idp_host . '/saml2/idp/SSOService.php',
-            'url' => $idp_host . '/adfs/ls'
+
+            'url' => $idp_host . '/adfs/ls',
         ),
         // SLO endpoint info of the IdP.
         'singleLogoutService' => array(
             // URL Location of the IdP where the SP will send the SLO Request,
             // using HTTP-Redirect binding.
-            // 'url' => $idp_host . '/saml2/idp/SingleLogoutService.php',
+
             'url' => $idp_host . '/adfs/ls?wa=wsignout1.0',
         ),
         // Public x509 certificate of the IdP
@@ -129,6 +131,8 @@ return $settings = array(
          */
         // 'certFingerprint' => '',
     ),
+
+
 
     /***
      *

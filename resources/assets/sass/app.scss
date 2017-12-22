@@ -1,9 +1,12 @@
 
-// Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import './node_modules/bulma/bulma.sass';
 
-// Variables
-@import "variables";
+$fa-font-path: "../../../node_modules/font-awesome/fonts" !default;
 
-// Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import 'node_modules/font-awesome/scss/font-awesome.scss';
+
+[v-cloak] { display: none; }
+
+.box-equal-height { height: 100%; }
+
+.very-unique-name { display: flex; justify-content: center; }

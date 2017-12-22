@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 
 class SAMLController extends Controller
 {
-    public function login()
-    {
-        return \Auth::guest() ? redirect('saml2/login') : \Redirect::intended('/');
-    }
+	public function login()
+	{
+		return auth()->guest() ? redirect('saml2/login') : redirect()->intended('/');
+	}
 
     public function logout()
     {
@@ -21,6 +21,7 @@ class SAMLController extends Controller
     }
     public function loggedin()
     {
+        dd('loggedIn');
         return view('welcome');
     }
 }

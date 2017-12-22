@@ -3,6 +3,7 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
 class Handler extends ExceptionHandler
@@ -21,10 +22,7 @@ class Handler extends ExceptionHandler
      *
      * @var array
      */
-    protected $dontFlash = [
-        'password',
-        'password_confirmation',
-    ];
+    protected $dontFlash = [];
 
     /**
      * Report or log an exception.
@@ -48,6 +46,12 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
+        if ($request->wantsJson())
+            return response([ 'success' => false, 'message' => $exception->getMessage() ], 404);
+
+        if ($exception instanceof AuthorizationException)
+            return redirect()->route('home')->with('flash', $exception->getMessage());
+
         return parent::render($request, $exception);
     }
 }
