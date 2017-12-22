@@ -36,7 +36,7 @@
         @endif
     @endif
     <p class="control">
-        <a class="button is-primary" href="{{ route('login') }}">
+        <a class="button is-primary" href="{{ route('logout') }}">
             <span class="icon"><i class="fa fa-sign-out" aria-hidden="true"></i></span>
             <span>Logout</span>
         </a>
