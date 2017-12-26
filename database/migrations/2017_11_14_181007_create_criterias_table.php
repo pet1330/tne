@@ -15,7 +15,7 @@ class CreateCriteriasTable extends Migration
     {
         Schema::create('criterias', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('description');
+            $table->text('description');
             $table->integer('module_id')->unsigned()->index();
             $table->foreign('module_id')->references('id')->on('modules');
             $table->timestamps();

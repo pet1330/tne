@@ -30,7 +30,7 @@ class CountryController extends Controller
 
     public function update(Country $country)
     {
-        request()->validate(['name' => 'required']);
+        request()->validate(['name' => 'required|max:255']);
         return tap($country)->update(request()->only('name'));
     }
 

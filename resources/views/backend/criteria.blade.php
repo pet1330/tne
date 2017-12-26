@@ -2,8 +2,8 @@
 @section('content')
 <div class="hero-body justify-center">
     <div class="field">
-        <a class="button is-primary is-outlined" href="{{ route('countries.show', $country->id) }}">
-            <i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;Back to Programmes
+        <a class="button is-primary is-outlined" href="{{ route('countries.programmes.show', [$country->id, $programme->id]) }}">
+            <i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;Back to Modules
         </a>
     </div>
     <div class="title has-text-centered">

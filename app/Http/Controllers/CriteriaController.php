@@ -14,12 +14,8 @@ class CriteriaController extends Controller
 
     public function store(Country $country, Programme $programme, Module $module)
     {
-        request()->validate(['description' => 'required', 'module_id' => 'exists:modules']);
-        $module->criterias()->save(
-            Criteria::make([
-                'description' => request()->description,
-                'module_id' => request()->module_id
-            ]));
+        request()->validate(['description' => 'required']);
+        $module->criterias()->save( Criteria::make([ 'description' => request()->description ]) );
         $criterias = $module->criterias;
         return redirect()->route('countries.programmes.modules.show',
             compact('country', 'programme', 'module', 'criterias'))

@@ -33,7 +33,7 @@ class ModuleController extends Controller
     public function update(Country $country, Programme $programme, Module $module) {
         if ($programme->country_id === $country->id &&
         $programme->modules()->select('id')->get()->contains($module->id)) {
-            request()->validate(['name' => 'required']);
+            request()->validate(['name' => 'required|max:255']);
             return tap($module)->update(request()->only('name'));
         }
     }

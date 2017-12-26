@@ -15,11 +15,6 @@ class ProgrammeController extends Controller
         $programmes = $country->programmes;
         return redirect()->route('countries.show', compact('countries', 'country'))
             ->with('flash', request()->name . ' successfully created');
-
-
-        // return redirect()->route('counties.programmes', compact('countries', 'programmes'))->with('flash', request()->name . ' successfully created');
-
-        // return view('backend.programme', compact('country'))->with('flash', request()->name . ' successfully created');
     }
 
     public function show(Country $country, Programme $programme)
