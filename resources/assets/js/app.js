@@ -62,8 +62,7 @@ const app = new Vue({
                 })
                 .catch((error) => {
                     this.table_loading = false;
-                    alert(`Opps! Something went wrong, we could not fetch information form the server
-                          Please contact your system adminastrator if this keeps happening`);
+                    flash("Opps! Something went wrong!", 'error');
                 });
             }
         },

@@ -1,6 +1,6 @@
 <template>
 <div id="column is-three-fifths is-offset-one-fifth">
-    <div class="field control has-icons-left">
+    <div v-if="countries.length" class="field control has-icons-left">
         <div class="select is-fullwidth is-primary is-medium">
             <select
                 tabindex="1"
@@ -21,48 +21,68 @@
             <i v-else class="fa fa-globe"></i>
         </span>
     </div>
-    <div v-if="country" class="field control has-icons-left">
-        <div class="select is-fullwidth is-primary is-medium">
-            <select
-                tabindex="2"
-                v-model="programme"
-                name="programme"
-                class="fixedwidth"
-                :disabled="programme_loading == 1">
-                <option value=""> --- Select Programme --- </option>
-                <option v-for="programme in programmes"
-                    :value="programme.id"
-                    :selected="programme.selected == true">
-                    {{ programme.name }}
-                </option>
-            </select>
-        </div>
-        <span class="icon is-medium is-left">
-            <i  v-if="programme_loading" class="fa fa-spinner fa-spin"></i>
-            <i v-else class="fa fa-book"></i>
-        </span>
+    <div v-else class="box is-fullwidth">
+        <p class="button is-white is-fullwidth">
+            The system is still being setup
+        </p>
     </div>
-    <div v-if="programme" class="field control has-icons-left">
-        <div class="select is-fullwidth is-primary is-medium">
-            <select
-                tabindex="3"
-                v-model="module"
-                name="module"
-                class="fixedwidth"
-                :disabled="module_loading == 1"
-                >
-                <option value=""> --- Select Module --- </option>
-                <option v-for="module in modules"
-                    :value="module.id"
-                    :selected="module.selected == true">
-                    {{ module.name }}
-                </option>
-            </select>
+
+    <div v-if="country" class="field control has-icons-left">
+        <div v-if="programmes.length">
+            <div class="select is-fullwidth is-primary is-medium">
+                <select
+                    tabindex="2"
+                    v-model="programme"
+                    name="programme"
+                    class="fixedwidth"
+                    :disabled="programme_loading == 1">
+                    <option value=""> --- Select Programme --- </option>
+                    <option v-for="programme in programmes"
+                        :value="programme.id"
+                        :selected="programme.selected == true">
+                        {{ programme.name }}
+                    </option>
+                </select>
+            </div>
+            <span class="icon is-medium is-left">
+                <i  v-if="programme_loading" class="fa fa-spinner fa-spin"></i>
+                <i v-else class="fa fa-book"></i>
+            </span>
         </div>
-        <span class="icon is-medium is-left">
-            <i  v-if="module_loading" class="fa fa-spinner fa-spin"></i>
-            <i v-else class="fa fa-file-text-o"></i>
-        </span>
+        <div v-else class="box is-fullwidth">
+            <p class="button is-white is-fullwidth">
+                This country has no programmes
+            </p>
+        </div>
+    </div>
+
+    <div v-if="programme" class="field control has-icons-left">
+        <div v-if="modules.length">
+            <div class="select is-fullwidth is-primary is-medium">
+                <select
+                    tabindex="3"
+                    v-model="module"
+                    name="module"
+                    class="fixedwidth"
+                    :disabled="module_loading == 1">
+                    <option value=""> --- Select Module --- </option>
+                    <option v-for="module in modules"
+                        :value="module.id"
+                        :selected="module.selected == true">
+                        {{ module.name }}
+                    </option>
+                </select>
+            </div>
+            <span class="icon is-medium is-left">
+                <i  v-if="module_loading" class="fa fa-spinner fa-spin"></i>
+                <i v-else class="fa fa-file-text-o"></i>
+            </span>
+        </div>
+        <div v-else class="box is-fullwidth">
+            <p class="button is-white is-fullwidth">
+                This programme has no modules
+            </p>
+        </div>
     </div>
 </div>
 </template>
@@ -79,6 +99,10 @@
                 modules: [],
                 module: "",
                 module_loading: true,
+                error: (error) => {
+                    flash("Opps! Something went wrong!", 'error');
+                    this.country_loading = false;
+                }
             }
         },
         created() {
@@ -86,14 +110,8 @@
                 .then((response) => {
                     this.countries = response.data;
                     this.country_loading = false;
-                })
-                .catch(function(error) {
-                    alert(`Opps! Something went wrong, we could not fetch information form the server
-Please contact your system adminastrator if this keeps happening`);
-                    this.country_loading = false;
-                });
+                }).catch(this.error);
         },
-        computed: {},
         watch: {
             country: function(val) {
                 this.programme = "";
@@ -106,12 +124,7 @@ Please contact your system adminastrator if this keeps happening`);
                         .then((response) => {
                             this.programmes = response.data;
                             this.programme_loading = false;
-                        })
-                        .catch(function(error) {
-                            alert(`Opps! Something went wrong, we could not fetch information form the server
-Please contact your system adminastrator if this keeps happening`);
-                            this.programme_loading = false;
-                        });
+                        }).catch(this.error);
                 }
             },
             programme: function(val) {
@@ -123,12 +136,7 @@ Please contact your system adminastrator if this keeps happening`);
                         .then((response) => {
                             this.modules = response.data;
                             this.module_loading = false;
-                        })
-                        .catch(function(error) {
-                            alert(`Opps! Something went wrong, we could not fetch information form the server
-Please contact your system adminastrator if this keeps happening`);
-                            this.module_loading = false;
-                        });
+                        }).catch(this.error);
                 }
             },
             module: function(val) {
@@ -138,8 +146,5 @@ Please contact your system adminastrator if this keeps happening`);
     }
 </script>
 <style lang="scss">
-.fixedwidth {
-// width:50em;
-align-items: stretch
-}
+    .fixedwidth { align-items: stretch; }
 </style>
