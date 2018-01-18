@@ -8,8 +8,8 @@
         </div>
         <div class="message-body">
             <ul>
-                <li v-for="criteria in table_data" :key="criteria.module.name">
-                    @{{ criteria.description }}
+                <li v-for="description in table_data">
+                    @{{ description }}
                 </li>
             </ul>
             <div class="has-text-centered">

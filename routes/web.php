@@ -1,30 +1,14 @@
 <?php
 
-Route::get('/', function() { return view('frontend.home'); })->name('home');
+Route::view('/', 'frontend.home')->name('home');
 Route::get('login', 'SAMLController@login')->name('login');
 Route::get('logout', 'SAMLController@logout')->name('logout');
 
-Route::get('table-data/{module}', function(App\Module $module) {
-    return $module->criterias->map(function(App\Criteria $c) {
-        return $c->links()->with('module','module.programmes',
-        'module.programmes.country')->get(); })->flatten()->toArray();
-});
-
-Route::get('countries', function() {
-    return App\Country::select(['id', 'name'])->get();
-});
-
-Route::get('programmes/{country}', function (App\Country $country) {
-    return $country->programmes()->select(['id', 'name'])->get();
-});
-
-Route::get('modules/{programme}', function (App\Programme $programme) {
-    return $programme->modules()->select(['id', 'name'])->get();
-});
-
-Route::get('criterias/{module}', function (App\Module $module) {
-    return $module->criterias()->select(['id', 'description'])->get()->unique('description');
-});
+Route::get('table-data/{module}', 'FrontendController@tableData');
+Route::get('countries', 'FrontendController@countries');
+Route::get('programmes/{country}', 'FrontendController@programmes');
+Route::get('modules/{programme}', 'FrontendController@modules');
+Route::get('criterias/{module}', 'FrontendController@criteria');
 
 Route::prefix('dashboard')
     ->middleware(['samlauth', 'can:admin'])

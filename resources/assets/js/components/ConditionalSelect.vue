@@ -1,6 +1,6 @@
 <template>
 <div id="column is-three-fifths is-offset-one-fifth">
-    <div v-if="countries.length" class="field control has-icons-left">
+    <div v-if="countries.length || country_loading" class="field control has-icons-left">
         <div class="select is-fullwidth is-primary is-medium">
             <select
                 tabindex="1"
@@ -28,7 +28,7 @@
     </div>
 
     <div v-if="country" class="field control has-icons-left">
-        <div v-if="programmes.length">
+        <div v-if="programmes.length || programme_loading">
             <div class="select is-fullwidth is-primary is-medium">
                 <select
                     tabindex="2"
@@ -57,7 +57,7 @@
     </div>
 
     <div v-if="programme" class="field control has-icons-left">
-        <div v-if="modules.length">
+        <div v-if="modules.length || module_loading">
             <div class="select is-fullwidth is-primary is-medium">
                 <select
                     tabindex="3"

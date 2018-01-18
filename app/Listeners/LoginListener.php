@@ -42,11 +42,12 @@ class LoginListener
         
         $user->save();
 
+        //login user
+        auth()->login($user);
+
         //insert sessionIndex and nameId into session
         session(['sessionIndex' => $loginAttempt->getSessionIndex()]);
         session(['nameId' => $loginAttempt->getNameId()]);
 
-        //login user
-        \Auth::login($user);
     }
 }
