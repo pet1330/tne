@@ -9,7 +9,7 @@ class CountryController extends Controller
 
     public function index()
     {
-        $countries = Country::select([ 'id', 'name' ])->get();
+        $countries = Country::select([ 'id', 'name'])->orderBy('name')->get();
             return request()->ajax() ?
             $countries : view('backend.country', compact('countries'));
     }
@@ -18,7 +18,7 @@ class CountryController extends Controller
     {
         request()->validate(['name' => 'required|max:255']);
         Country::create([ 'name' => request()->name ]);
-        $countries = Country::select([ 'id', 'name' ])->get();
+        $countries = Country::select([ 'id', 'name' ])->orderBy('name')->get();
         return redirect()->route('countries.index', compact('countries'))
             ->with('flash', request()->name . ' successfully created');
     }

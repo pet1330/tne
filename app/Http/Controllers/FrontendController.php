@@ -13,7 +13,7 @@ class FrontendController extends Controller
     public function tableData(Module $module)
     {
         return $module->criterias->map(function(Criteria $c) {
-            return $c->links;
+            return $c->links()->orderBy('description')->get();
         })->flatten()->filter(function(Criteria $item) use ($module) {
             return $item->module->id !== $module->id;
         })->flatten()->pluck('description')->unique();
@@ -21,21 +21,21 @@ class FrontendController extends Controller
 
     public function countries()
     {
-        return Country::select(['id', 'name'])->get();
+        return Country::select(['id', 'name'])->orderBy('name')->get();
     }
 
     public function programmes(Country $country)
     {
-        return $country->programmes()->select(['id', 'name'])->get();
+        return $country->programmes()->select(['id', 'name'])->orderBy('name')->get();
     }
 
     public function modules(Programme $programme)
     {
-        return $programme->modules()->select(['id', 'name'])->get();
+        return $programme->modules()->select(['id', 'name'])->orderBy('name')->get();
     }
 
     public function criteria(Module $module)
     {
-        return $module->criterias()->select(['id', 'description'])->get()->unique('description');
+        return $module->criterias()->select(['id', 'description'])->orderBy('description')->get()->unique('description');
     }
 }

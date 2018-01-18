@@ -16,7 +16,7 @@ class CriteriaController extends Controller
     {
         request()->validate(['description' => 'required']);
         $module->criterias()->save( Criteria::make([ 'description' => request()->description ]) );
-        $criterias = $module->criterias;
+        $criterias = $module->criterias()->orderBy('description')->get();
         return redirect()->route('countries.programmes.modules.show',
             compact('country', 'programme', 'module', 'criterias'))
             ->with('flash', request()->name . ' successfully created');

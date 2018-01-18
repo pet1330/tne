@@ -10,7 +10,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = User::isAdmin()->get();
+        $users = User::isAdmin()->orderBy('university_email')->get();
         return view('backend.admin.index', compact('users'));
     }
 
@@ -27,8 +27,7 @@ class UserController extends Controller
             'last_name' => request()->last_name,
             'university_email' => request()->university_email,
         ])->update(['is_admin' => true]);
-        $users = User::isAdmin()->get();
-        return view('backend.admin.index', compact('users'))->with('flash', $u . ' has been promoted to admin');
+        return redirect()->route('users.index')->with('flash', $u . ' has been promoted to admin');
     }
 
     public function destroy(User $user)
@@ -36,8 +35,9 @@ class UserController extends Controller
         if ( User::isAdmin()->count() > 1 || $user->id === auth()->id() )
         {
             $user->update(['is_admin' => false]);
-            return back()->with('flash', $user->first_name . '\'s admin rights removed');
+            return redirect()->route('users.index')
+            ->with('flash', $user->first_name . '\'s admin rights removed');
         }
-        return back();
+        return redirect()->route('users.index');
     }
 }

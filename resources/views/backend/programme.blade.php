@@ -33,7 +33,7 @@
             </div>
         </div>
     </div>
-    @forelse($country->programmes->chunk(3) as $row)
+    @forelse($country->programmes()->orderBy('name')->get()->chunk(3) as $row)
         <div class="columns">
             @foreach ($row as $pr)
                 <resource-box

@@ -12,7 +12,7 @@ class ProgrammeController extends Controller
     {
         request()->validate(['name' => 'required|max:255']);
         $country->programmes()->save( Programme::make([ 'name' => request()->name ]) );
-        $programmes = $country->programmes;
+        $programmes = $country->programmes()->orderBy('name')->get();
         return redirect()->route('countries.show', compact('countries', 'country'))
             ->with('flash', request()->name . ' successfully created');
     }

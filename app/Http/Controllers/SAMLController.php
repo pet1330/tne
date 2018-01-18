@@ -19,9 +19,4 @@ class SAMLController extends Controller
             'sessionIndex'=> session()->get('sessionIndex')
         ]);
     }
-    public function loggedin()
-    {
-        dd('loggedIn');
-        return view('welcome');
-    }
 }
