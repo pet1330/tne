@@ -13,8 +13,8 @@ services:
       - MYSQL_ALLOW_EMPTY_PASSWORD=true
 
   transnat:
-    #image: lcasuol/transnat_system:latest
-    build: . 
+    image: lcasuol/transnational_system:latest
+    #build: . 
     command: "bash -c 'ln -fs /srv/config/.env /var/www/html/transnat/.env && /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf'"
     links:
       - db
