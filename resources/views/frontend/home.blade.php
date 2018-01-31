@@ -26,5 +26,10 @@
             </div>
         </div>
     </article>
+    <div v-if="noLinks" class="box is-fullwidth">
+        <p class="button is-white is-fullwidth">
+            NO LINKS AVAILABLE
+        </p>
+    </div>
 </div>
 @endsection

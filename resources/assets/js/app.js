@@ -40,7 +40,8 @@ const app = new Vue({
         table_loading: false,
         countries: [],
         programmes: [],
-        modules: []
+        modules: [],
+        hideNoLinks: false
     },
     computed: {
         criterialist: function() {
@@ -48,22 +49,28 @@ const app = new Vue({
         },
         showCopy: function() {
             return this.criterialist && !this.table_loading;
+        },
+        noLinks: function() {
+            return !this.table_loading && !this.table_data.length && this.hideNoLinks ;
         }
     },
     methods: {
         updatetable (val) {
             this.table_data = [];
             if (val != "") {
-            this.table_loading = true;
-            axios.get('/table-data/' + val)
+                this.table_loading = true;
+                axios.get('/table-data/' + val)
                 .then((response) => {
                     this.table_data = response.data;
+                    this.hideNoLinks = true;
                     this.table_loading = false;
                 })
                 .catch((error) => {
                     this.table_loading = false;
                     flash("Opps! Something went wrong!", 'error');
                 });
+            } else {
+                this.hideNoLinks = false;
             }
         },
         copySuccess(e) {
