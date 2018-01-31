@@ -44,7 +44,7 @@ const app = new Vue({
     },
     computed: {
         criterialist: function() {
-            return this.table_data.map((e) => e.description).join("\n");
+            return Array.prototype.join.call(this.table_data, "\n");
         },
         showCopy: function() {
             return this.criterialist && !this.table_loading;
