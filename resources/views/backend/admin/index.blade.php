@@ -3,7 +3,7 @@
 <div class="hero-body justify-center">
     <div class="field">
         <a class="button is-primary is-outlined" href="{{ route('dashboard') }}">
-            <i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;Back to Dasboard
+            <i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;Back to Dashboard
         </a>
     </div>
     <div class="title has-text-centered">
