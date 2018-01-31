@@ -17,7 +17,9 @@ class Country extends Model
 
     protected $table ='countries';
 
-    protected $with = [ ];
+    protected $with = [ 'programmes' ];
+
+    protected $withCount = ['programmes'];
 
     protected $fillable = [ 'name' ];
 

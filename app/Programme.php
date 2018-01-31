@@ -18,7 +18,9 @@ class Programme extends Model
 
     protected $table ='programmes';
 
-    protected $with = [ ];
+    protected $with = [ 'modules' ];
+
+    protected $withCount = ['modules'];
 
     protected $fillable = [ 'name' ];
 

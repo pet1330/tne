@@ -19,6 +19,8 @@ class Module extends Model
 
     protected $table ='modules';
 
+    protected $withCount = ['criterias'];
+
     protected $fillable = [ 'name' ];
 
     protected $hidden = ['pivot', 'deleted_at', 'created_at', 'updated_at'];
