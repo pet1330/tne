@@ -14,8 +14,20 @@ class ModuleController extends Controller
         if ($programme->country_id !== $country->id) abort(404);
 
         request()->validate(['name' => 'required|max:255']);
-        $programme->modules()->syncWithoutDetaching( Module::firstOrCreate([ 'name' => request()->name ]) );
+        $f = Module::firstOrNew([ 'name' => request()->name ]);
+
+        if($f->exists) {
+            if($country->programmes->map(function(Programme $p){ return $p->modules->pluck('name'); })->flatten()->contains(request()->name)){
+                $programme->modules()->syncWithoutDetaching( $f );
+            } else {
+                $programme->modules()->syncWithoutDetaching( Module::create([ 'name' => request()->name ]) );
+            }
+        } else {
+            $programme->modules()->syncWithoutDetaching( tap($f)->save() );
+        }
+
         $modules = $programme->modules()->orderBy('name')->get();
+
         return redirect()->route('countries.programmes.show', compact('country', 'programme', 'modules'))
             ->with('flash', request()->name . ' successfully created');
     }
