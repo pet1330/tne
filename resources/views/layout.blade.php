@@ -17,38 +17,38 @@
                         <h1 class="title">Transnational Programme Matcher</h1>
                         <h2 class="subtitle">@yield('subtitle','Please select your module')</h2>
                         <div class="field is-grouped is-grouped-right">
-@if(auth()->check())
-    @if(auth()->user()->is_admin)
-        @if(Route::current()->getName() !== 'dashboard')
-        <p class="control">
-            <a class="button is-primary" href="{{ route('dashboard') }}">
-                <span class="icon"><i class="fa fa-dashboard" aria-hidden="true"></i></span>
-                <span>Dashboard</span>
-            </a>
-        </p>
-        @else
-        <p class="control">
-            <a class="button is-primary" href="{{ route('home') }}">
-                <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
-                <span>Home Page</span>
-            </a>
-        </p>
-        @endif
-    @endif
-    <p class="control">
-        <a class="button is-primary" href="{{ route('logout') }}">
-            <span class="icon"><i class="fa fa-sign-out" aria-hidden="true"></i></span>
-            <span>Logout</span>
-        </a>
-    </p>
-@else
-    <p class="control">
-        <a class="button is-primary" href="{{ route('login') }}">
-            <span class="icon"><i class="fa fa-sign-in" aria-hidden="true"></i></span>
-            <span>Admin Login</span>
-        </a>
-    </p>
-@endif
+                            @if(auth()->check())
+                            @if(auth()->user()->is_admin)
+                            @if(Route::current()->getName() !== 'dashboard')
+                            <p class="control">
+                                <a class="button is-primary" href="{{ route('dashboard') }}">
+                                    <span class="icon"><i class="fa fa-dashboard" aria-hidden="true"></i></span>
+                                    <span>Dashboard</span>
+                                </a>
+                            </p>
+                            @else
+                            <p class="control">
+                                <a class="button is-primary" href="{{ route('home') }}">
+                                    <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
+                                    <span>Home Page</span>
+                                </a>
+                            </p>
+                            @endif
+                            @endif
+                            <p class="control">
+                                <a class="button is-primary" href="{{ route('logout') }}">
+                                    <span class="icon"><i class="fa fa-sign-out" aria-hidden="true"></i></span>
+                                    <span>Logout</span>
+                                </a>
+                            </p>
+                            @else
+                            <p class="control">
+                                <a class="button is-primary" href="{{ route('login') }}">
+                                    <span class="icon"><i class="fa fa-sign-in" aria-hidden="true"></i></span>
+                                    <span>Admin Login</span>
+                                </a>
+                            </p>
+                            @endif
                         </div>
                     </div>
                 </div>

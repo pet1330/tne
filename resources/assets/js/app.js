@@ -36,7 +36,7 @@ window.flash = function(message, type) {
 const app = new Vue({
     el: '#app',
     data: {
-        table_data: [],
+        table_data: {'selected': [], 'linked': [] },
         table_loading: false,
         countries: [],
         programmes: [],
@@ -45,18 +45,24 @@ const app = new Vue({
     },
     computed: {
         criterialist: function() {
-            return Array.prototype.join.call(this.table_data, "\n");
+            return Array.prototype.join.call(this.table_data.selected, "\n");
+        },
+        linkedlist: function() {
+            return Array.prototype.join.call(this.table_data.linked, "\n");
         },
         showCopy: function() {
             return this.criterialist && !this.table_loading;
         },
         noLinks: function() {
-            return !this.table_loading && !this.table_data.length && this.hideNoLinks ;
+            return !this.table_loading && !this.table_data.linked.length && this.hideNoLinks ;
+        },
+        noCriteria: function() {
+            return !this.table_loading && !this.table_data.selected.length && this.hideNoLinks;
         }
     },
     methods: {
         updatetable (val) {
-            this.table_data = [];
+            this.table_data = {'selected': [], 'linked': [] };
             if (val != "") {
                 this.table_loading = true;
                 axios.get('/table-data/' + val)
