@@ -16,12 +16,14 @@ import VueClipboards from 'vue-clipboards';
 import conditionalSelect from './components/ConditionalSelect.vue';
 import resourceBox from './components/ResourceBox.vue';
 import criteriaBox from './components/CriteriaBox.vue';
+import collapseBox from './components/CollapseBox.vue';
 import linkAdder from './components/LinkAdder.vue';
 import flash from './components/Flash.vue';
 
 Vue.component('conditional-select', conditionalSelect);
 Vue.component('resource-box', resourceBox);
 Vue.component('criteria-box', criteriaBox);
+Vue.component('collapse-box', collapseBox);
 Vue.component('link-adder', linkAdder);
 Vue.component('flash', flash);
 

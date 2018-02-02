@@ -13,8 +13,10 @@ class CriteriaSeeder extends Seeder
      */
     public function run()
     {
-        Module::all()->each(function(Module $m){
-            $m->criterias()->saveMany(factory(Criteria::class, rand(0,7))->make());
+        Module::all()->each(function(Module $m) {
+            $l = rand(0,7);
+            for ($i=0; $l < $l ; $i++)
+                $m->criterias()->save(Criteria::make('description'));
         });
 
         Criteria::all()->each(function(Criteria $c){

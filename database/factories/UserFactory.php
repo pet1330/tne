@@ -8,6 +8,7 @@ $factory->define(\App\User::class, function (Faker $faker) {
     return [
         'first_name' => $faker->firstName,
         'last_name' => $faker->lastName,
-        'university_email' => $faker->unique()->safeEmail
+        'university_email' => $faker->unique()->safeEmail,
+        'is_admin' => true
     ];
 });
