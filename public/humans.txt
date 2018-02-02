@@ -1,0 +1,36 @@
+/* TEAM */
+
+Web Developer:      Peter Lightbody
+Site:               https://www.plightbody.co.uk
+Location:           Lincoln, England
+
+/* SITE */
+
+TECHNOLOGY
+
+Laravel - The PHP Framework For Web Artisans
+laravel.com
+
+Vue.js - The Progressive JavaScript Framework
+vuejs.org
+
+Bulma - An open source CSS framework based on Flexbox
+bulma.io
+
+axios - Promise based HTTP client for the browser
+github.com/axios/axios
+
+Font Awesome - The Iconic font and CSS Toolkit
+fontawesome.io
+
+lodash - A modern JavaScript utility library delivering modularity, performance & extras
+lodash.com
+
+Sass - CSS with superpowers
+sass-lang.com
+
+Github - Code Collaboration
+github.com
+
+Webpack - A module bundler.
+webpack.js.org

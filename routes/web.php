@@ -15,7 +15,7 @@ Route::prefix('dashboard')
     ->group( function() {
 
     Route::view('/', 'backend.dashboard')->name('dashboard');
-    Route::view('database', 'backend.treecollapse')->name('database');
+    Route::view('database', 'backend.tree')->name('database');
 
     Route::post(
         'countries/{country}/programmes/{programme}/modules/{module}/criterias/{criteria}/links',

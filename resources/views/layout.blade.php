@@ -56,6 +56,20 @@
             @yield('content')
             <flash message="{{ session('flash') }}" :display-icons="true"></flash>
         </div>
+        <footer v-cloak class="hero is-light">
+            <div class="level">
+                <div class="level-left">
+                    <div class="level-item">
+                        Developed&nbsp;by&nbsp;<a href="https://plightbody.com/" target="_blank">&nbsp;Peter&nbsp;Lightbody&nbsp;</a>&nbsp;&copy;&nbsp;{{ date("Y") }}
+                    </div>
+                </div>
+                <div class="level-right">
+                    <div class="level-item">
+                        Version:&nbsp;{{ $app_version }}
+                    </div>
+                </div>
+            </div>
+        </footer>
         <script src="{{ mix('js/app.js') }}"></script>
     </body>
 </html>

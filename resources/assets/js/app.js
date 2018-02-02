@@ -29,7 +29,7 @@ Vue.component('flash', flash);
 
 Vue.use(VueClipboards);
 
-window.events = new Vue({});
+window.events = new Vue({ el:'footer' });
 
 window.flash = function(message, type) {
     window.events.$emit('flash', message, type);

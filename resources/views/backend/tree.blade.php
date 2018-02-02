@@ -6,62 +6,30 @@
       <i class="fa fa-arrow-left" aria-hidden="true"></i>&nbsp;Back to Dashboard
     </a>
   </div>
-  @foreach(App\Country::get() as $cr)
-  <div class="card">
-    <header class="card-header">
-      <p class="card-header-title">{{ $cr->name }}</b> - [{{ $cr->programmes_count }}]</p>
-    <span class="card-header-icon"><span class="icon">[C]</span></span>
-    </header>
-    <div class="card-content">
-      <div class="content">
-        @foreach($cr->programmes as $p)
-        <div class="card">
-          <header class="card-header">
-            <p class="card-header-title">{{ $p->name }}</b> - [{{ $p->modules_count }}]</p>
-            <span class="card-header-icon"><span class="icon">[P]</span></span>
-          </header>
-          <div class="card-content">
-            <div class="content">
-              @foreach($p->modules as $m)
-              <div class="card">
-                <header class="card-header">
-                  <p class="card-header-title">{{ $m->name }}</b> - [{{ $m->criterias_count }}]</p>
-                  <span class="card-header-icon"><span class="icon">[M]</span></span>
-                </header>
-                <div class="card-content">
-                  <div class="content">
-                    @foreach($m->criterias()->with('links')->get() as $c)
-                    <div class="card">
-                      <header class="card-header">
-                        <p class="card-header-title">{{ $c->description }}</p>
-                        <span class="card-header-icon"><span class="icon">[Cr]</span></span>
-                      </header>
-                      <div class="card-content">
-                        <div class="content">
-                          @if($c->links->isNotEmpty()) Linked Criteria:
-                          @else
-                          No Connected Links
-                          @endif
-                          <ul>
-                            @foreach($c->links as $lc)
-                            <li> {{ $lc->description }} - <b>({{ $lc->module->name }})</b> </li>
+    @foreach(App\Country::get() as $cr)
+        <collapse-box rawr="{{ $cr->name }}" icon="Co" :count="{{ $cr->programmes_count }}">
+            @foreach($cr->programmes as $p)
+                <collapse-box rawr="{{ $p->name }}" icon="Pr" :count="{{ $p->modules_count }}">
+                    @foreach($p->modules as $m)
+                        <collapse-box rawr="{{ $m->name }}" icon="Mo" :count="{{ $m->criterias_count }}">
+                            @foreach($m->criterias()->with('links')->get() as $c)
+                                <collapse-box rawr="{{ $c->description }}" icon="Cr" :count="{{ $c->links()->count() }}">
+                                    @if($c->links->isNotEmpty()) Linked Criteria:
+                                    @else
+                                    No Connected Links
+                                    @endif
+                                    <ul>
+                                        @foreach($c->links as $lc)
+                                            <li> {{ $lc->description }} - <b>({{ $lc->module->name }})</b> </li>
+                                        @endforeach
+                                    </ul>
+                                </collapse-box>
                             @endforeach
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
+                        </collapse-box>
                     @endforeach
-                  </div>
-                </div>
-              </div>
-              @endforeach
-            </div>
-          </div>
-        </div>
-        @endforeach
-      </div>
-    </div>
-  </div>
-  @endforeach
+                </collapse-box>
+            @endforeach
+        </collapse-box>
+    @endforeach
 </div>
-@endsection
+@endsection 
