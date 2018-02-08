@@ -65,7 +65,7 @@
                 </div>
                 <div class="level-right">
                     <div class="level-item">
-                        Version:&nbsp;{{ $app_version }}
+                        <a href="https://m.do.co/c/e827a0190785" target="_blank" rel="noopener noreferrer">Proudly hosted on Digital Ocean</a>
                     </div>
                 </div>
             </div>
