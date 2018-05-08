@@ -6,22 +6,22 @@ use Illuminate\Database\Eloquent\Model;
 
 class Country extends Model
 {
-
-    protected static function boot() {
+    protected static function boot()
+    {
         parent::boot();
 
-        static::deleting(function($country) {
-             $country->programmes->each->delete();
+        static::deleting(function ($country) {
+            $country->programmes->each->delete();
         });
     }
 
-    protected $table ='countries';
+    protected $table = 'countries';
 
-    protected $with = [ 'programmes' ];
+    protected $with = ['programmes'];
 
     protected $withCount = ['programmes'];
 
-    protected $fillable = [ 'name' ];
+    protected $fillable = ['name'];
 
     protected $hidden = ['deleted_at', 'created_at', 'updated_at'];
 

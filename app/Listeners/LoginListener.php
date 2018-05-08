@@ -2,10 +2,8 @@
 
 namespace App\Listeners;
 
+use Aacotroneo\Saml2\Events\Saml2LoginEvent;
 use App\User;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use \Aacotroneo\Saml2\Events\Saml2LoginEvent;
 
 class LoginListener
 {
@@ -22,7 +20,8 @@ class LoginListener
     /**
      * Handle the event.
      *
-     * @param  Saml2LoginEvent  $event
+     * @param Saml2LoginEvent $event
+     *
      * @return void
      */
     public function handle(Saml2LoginEvent $event)
@@ -36,10 +35,10 @@ class LoginListener
         )->fill([
             // Update or set attributes
             'university_email' => $loginAttempt->getUserId(),
-            'first_name' => $details['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'][0],
-            'last_name' => $details['LastName'][0]
+            'first_name'       => $details['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'][0],
+            'last_name'        => $details['LastName'][0],
         ]);
-        
+
         $user->save();
 
         //login user
@@ -48,6 +47,5 @@ class LoginListener
         //insert sessionIndex and nameId into session
         session(['sessionIndex' => $loginAttempt->getSessionIndex()]);
         session(['nameId' => $loginAttempt->getNameId()]);
-
     }
 }

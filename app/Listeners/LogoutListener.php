@@ -2,9 +2,7 @@
 
 namespace App\Listeners;
 
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use \Aacotroneo\Saml2\Events\Saml2LogoutEvent;
+use Aacotroneo\Saml2\Events\Saml2LogoutEvent;
 
 class LogoutListener
 {
@@ -21,7 +19,8 @@ class LogoutListener
     /**
      * Handle the event.
      *
-     * @param  Saml2LogoutEvent  $event
+     * @param Saml2LogoutEvent $event
+     *
      * @return void
      */
     public function handle(Saml2LogoutEvent $event)

@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateProgrammesTable extends Migration
 {
@@ -27,7 +27,7 @@ class CreateProgrammesTable extends Migration
      *
      * @return void
      */
-    public function down()  
+    public function down()
     {
         Schema::dropIfExists('programmes');
     }

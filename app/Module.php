@@ -6,22 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Module extends Model
 {
-
-    protected static function boot() {
+    protected static function boot()
+    {
         parent::boot();
 
-        static::deleting(function(Module $module) {
+        static::deleting(function (Module $module) {
             $module->programmes()->detach();
             $module->criterias->each->delete();
-
         });
     }
 
-    protected $table ='modules';
+    protected $table = 'modules';
 
     protected $withCount = ['criterias'];
 
-    protected $fillable = [ 'name' ];
+    protected $fillable = ['name'];
 
     protected $hidden = ['pivot', 'deleted_at', 'created_at', 'updated_at'];
 

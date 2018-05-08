@@ -6,11 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Criteria extends Model
 {
-
-    protected static function boot() {
+    protected static function boot()
+    {
         parent::boot();
 
-        static::deleting(function($criteria) {
+        static::deleting(function ($criteria) {
             $criteria->remove_links();
         });
     }
@@ -23,22 +23,24 @@ class Criteria extends Model
 
     public function links()
     {
-        return $this->belongsToMany(Criteria::class, 'criteria_links', 'original_id', 'linked_id');
+        return $this->belongsToMany(self::class, 'criteria_links', 'original_id', 'linked_id');
     }
 
     public function add_link($link_id)
     {
         $this->links()->syncWithoutDetaching([$link_id]);
-        $link = Criteria::find($link_id);
+        $link = self::find($link_id);
         $link->links()->syncWithoutDetaching([$this->id]);
+
         return $this;
     }
 
     public function remove_link($link_id)
     {
         $this->links()->detach($link_id);
-        $link = Criteria::find($link_id);
+        $link = self::find($link_id);
         $link->links()->detach($this->id);
+
         return $this;
     }
 
@@ -46,9 +48,10 @@ class Criteria extends Model
     {
         $links = $this->links->pluck('id');
         $this->links()->detach($links);
-        Criteria::findMany($links)->each(function(Criteria $c) {
+        self::findMany($links)->each(function (Criteria $c) {
             $c->links()->detach($this->id);
         });
+
         return $this;
     }
 
