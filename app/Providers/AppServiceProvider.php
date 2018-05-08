@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use View;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 

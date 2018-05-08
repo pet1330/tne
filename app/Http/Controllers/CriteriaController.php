@@ -2,30 +2,30 @@
 
 namespace App\Http\Controllers;
 
-use Ap\Link;
-use App\Module;
 use App\Country;
 use App\Criteria;
+use App\Module;
 use App\Programme;
 use Illuminate\Http\Request;
 
 class CriteriaController extends Controller
 {
-
     public function store(Country $country, Programme $programme, Module $module)
     {
         request()->validate(['description' => 'required']);
-        $module->criterias()->save( Criteria::make([ 'description' => request()->description ]) );
+        $module->criterias()->save(Criteria::make(['description' => request()->description]));
         $criterias = $module->criterias()->orderBy('description')->get();
+
         return redirect()->route('countries.programmes.modules.show',
             compact('country', 'programme', 'module', 'criterias'))
-            ->with('flash', request()->name . ' successfully created');
+            ->with('flash', request()->name.' successfully created');
     }
 
     public function update(Country $country,
         Programme $programme, Module $module, Criteria $criteria)
     {
         request()->validate(['description' => 'required']);
+
         return tap($criteria)->update(request()->only('description'));
     }
 
