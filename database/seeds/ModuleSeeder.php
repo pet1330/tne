@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\Module;
 
 class ModuleSeeder extends Seeder
 {
@@ -172,9 +171,9 @@ class ModuleSeeder extends Seeder
             ['programme_id' => '4', 'name' => 'Industrial Training'],
         ]);
 
-    $entries->map(function($data) {
-        $m = App\Module::create(['name' => $data['name'] ]);
-        $m->programmes()->save(App\Programme::find($data['programme_id']));
-    });        
+        $entries->map(function ($data) {
+            $m = App\Module::create(['name' => $data['name']]);
+            $m->programmes()->save(App\Programme::find($data['programme_id']));
+        });
     }
 }
