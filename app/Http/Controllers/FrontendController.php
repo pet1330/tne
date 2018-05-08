@@ -2,24 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Resources\TableData;
-use App\Http\Resources\TableDatas;
-use App\Module;
 use App\Country;
 use App\Criteria;
+use App\Http\Resources\TableData;
+use App\Module;
 use App\Programme;
 
 class FrontendController extends Controller
 {
     public function tableData(Module $module)
     {
-        $data = collect(['selected' => null, 'linked' => null, ]);
-        $data->put('linked', $module->criterias->map(function(Criteria $c) {
-                return $c->links()->orderBy('description')->get();
-            })->flatten()->filter(function(Criteria $item) use ($module) {
-                return $item->module->id !== $module->id;
-            })->flatten()->pluck('description')->unique()->values() );
+        $data = collect(['selected' => null, 'linked' => null]);
+        $data->put('linked', $module->criterias->map(function (Criteria $c) {
+            return $c->links()->orderBy('description')->get();
+        })->flatten()->filter(function (Criteria $item) use ($module) {
+            return $item->module->id !== $module->id;
+        })->flatten()->pluck('description')->unique()->values());
         $data->put('selected', $module->criterias->pluck('description')->unique()->flatten());
+
         return $data;
     }
 

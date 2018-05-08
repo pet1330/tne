@@ -6,23 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Programme extends Model
 {
-
-    protected static function boot() {
+    protected static function boot()
+    {
         parent::boot();
 
-        static::deleting(function($programme) {
+        static::deleting(function ($programme) {
             $programme->modules()->detach();
             Module::doesntHave('programmes')->get()->each->delete();
         });
     }
 
-    protected $table ='programmes';
+    protected $table = 'programmes';
 
-    protected $with = [ 'modules' ];
+    protected $with = ['modules'];
 
     protected $withCount = ['modules'];
 
-    protected $fillable = [ 'name' ];
+    protected $fillable = ['name'];
 
     protected $hidden = ['pivot', 'deleted_at', 'created_at', 'updated_at', 'country_id'];
 

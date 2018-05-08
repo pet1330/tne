@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateModuleProgrammePivotTable extends Migration
 {
@@ -16,7 +16,7 @@ class CreateModuleProgrammePivotTable extends Migration
         Schema::create('module_programme', function (Blueprint $table) {
             $table->integer('module_id')->unsigned()->index();
             $table->foreign('module_id')->references('id')->on('modules');
-            
+
             $table->integer('programme_id')->unsigned()->index();
             $table->foreign('programme_id')->references('id')->on('programmes');
         });

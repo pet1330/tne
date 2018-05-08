@@ -12,27 +12,26 @@ Route::get('criterias/{module}', 'FrontendController@criteria');
 
 Route::prefix('dashboard')
     ->middleware(['samlauth', 'can:admin'])
-    ->group( function() {
+    ->group(function () {
+        Route::view('/', 'backend.dashboard')->name('dashboard');
+        Route::view('database', 'backend.tree')->name('database');
 
-    Route::view('/', 'backend.dashboard')->name('dashboard');
-    Route::view('database', 'backend.tree')->name('database');
-
-    Route::post(
+        Route::post(
         'countries/{country}/programmes/{programme}/modules/{module}/criterias/{criteria}/links',
         'CriteriaController@addlink')->name('link.store');
 
-    Route::delete(
+        Route::delete(
         'countries/{country}/programmes/{programme}/modules/{module}/criterias/{criteria}/links/{link}',
         'CriteriaController@removelink')->name('link.destroy');
 
-    Route::resource('countries', 'CountryController',
+        Route::resource('countries', 'CountryController',
         ['except' => ['create', 'edit']]);
-    Route::resource('countries.programmes', 'ProgrammeController',
+        Route::resource('countries.programmes', 'ProgrammeController',
         ['except' => ['index', 'create', 'edit']]);
-    Route::resource('countries.programmes.modules', 'ModuleController',
+        Route::resource('countries.programmes.modules', 'ModuleController',
         ['except' => ['index', 'create', 'edit']]);
-    Route::resource('countries.programmes.modules.criterias', 'CriteriaController',
+        Route::resource('countries.programmes.modules.criterias', 'CriteriaController',
         ['except' => ['index', 'create', 'edit', 'show']]);
-    Route::resource('users', 'UserController',
+        Route::resource('users', 'UserController',
         ['only' => ['index', 'store', 'destroy']]);
-});
+    });
