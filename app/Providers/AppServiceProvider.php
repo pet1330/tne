@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use View;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -14,11 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::share('app_version',
-            \Cache::remember('app_version', 10, function () {
-                return strtok(shell_exec('git describe --always --tags'), '-');
-            })
-        );
+        Schema::defaultStringLength(191);
     }
 
     /**
