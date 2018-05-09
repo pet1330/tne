@@ -3,8 +3,10 @@ version: '2'
 services:
   redis:
     image: redis
+    restart: always
   db:
-    image: mysql
+    image: mysql:5.7
+    restart: always
     volumes:
       - /srv/transnat/db:/var/lib/mysql
     expose:
@@ -13,7 +15,7 @@ services:
       - MYSQL_ALLOW_EMPTY_PASSWORD=true
 
   transnat:
-    image: lcasuol/transnational_system:latest
+    image: lcasuol/tne:lcas
     #build: . 
     command: "bash -c 'ln -fs /srv/config/.env /var/www/html/transnat/.env && /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf'"
     links:
@@ -25,3 +27,16 @@ services:
     volumes:
       - /srv/transnat/storage:/var/www/transnat/storage
       - /srv/transnat/config:/srv/config
+
+  mysqldump:
+    image: schnitzler/mysqldump
+    restart: always
+    volumes:
+      - ./db-backup.sh:/etc/periodic/daily/backup
+      - /srv/pgr/storage:/backup
+    command: ["-l", "8", "-d", "8"]
+    environment:
+      MYSQL_HOST: db
+      MYSQL_USER: root
+      MYSQL_PASSWORD:
+      MYSQL_DATABASE: transnational
