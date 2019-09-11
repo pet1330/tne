@@ -48,7 +48,7 @@ class Criteria extends Model
     {
         $links = $this->links->pluck('id');
         $this->links()->detach($links);
-        self::findMany($links)->each(function (Criteria $c) {
+        self::findMany($links)->each(function (self $c) {
             $c->links()->detach($this->id);
         });
 
