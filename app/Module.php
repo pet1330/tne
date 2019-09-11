@@ -10,7 +10,7 @@ class Module extends Model
     {
         parent::boot();
 
-        static::deleting(function (Module $module) {
+        static::deleting(function (self $module) {
             $module->programmes()->detach();
             $module->criterias->each->delete();
         });
